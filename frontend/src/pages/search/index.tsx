@@ -12,13 +12,12 @@ import {
 import {ICONS} from '../../assets';
 import {Icon} from '../../components';
 import {SearchScreenProps} from '../../types';
-import {searchApi} from '../../../api';
 import {useDispatch, useSelector} from 'react-redux';
-import {Suggestion} from '../../redux/slices/suggestionSlice';
+import {Anime, getSuggestions} from '../../redux/slices/suggestionSlice';
 import {AppDispatch, RootState} from '../../redux/store';
 
 interface ItemProps {
-  item: Suggestion;
+  item: Anime;
 }
 
 function Item(props: ItemProps): React.JSX.Element {
@@ -42,29 +41,12 @@ function Item(props: ItemProps): React.JSX.Element {
 function SearchScreen(props: SearchScreenProps): React.JSX.Element {
   const [query, setQuery] = useState('');
   const dispatch: AppDispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.suggestion);
-  const [suggestions, setSuggestions] = useState(data);
-
-  async function getSearchResults() {
-    const response = await searchApi({query: query});
-    const data = response?.data;
-    const animeList: Suggestion[] = [];
-    data.map(item => {
-      animeList.push({
-        title: item.title,
-        trailer_url: item.trailer.url,
-        img_url: item.images.jpg.image_url,
-        genres: item.genres.map((genre: any) => genre.name),
-        rating: item.rating,
-        duration: item.duration,
-        score: item.score,
-      });
-    });
-    animeList && dispatch(setSuggestions(animeList));
-  }
+  const suggestions = useSelector(
+    (state: RootState) => state.suggestions.results,
+  );
 
   useEffect(() => {
-    getSearchResults();
+    dispatch(getSuggestions(query));
   }, [query]);
 
   return (
