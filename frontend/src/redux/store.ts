@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import suggestionReducer from './slices/suggestionSlice';
+import topAnimeReducer from './slices/topAnimeSlice';
 
 export const store = configureStore({
   reducer: {
-    suggestion: suggestionReducer,
+    suggestions: suggestionReducer,
+    recommendation: topAnimeReducer,
   },
 });
 
