@@ -6,23 +6,25 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
 import {ICONS} from '../../assets';
 import {Icon} from '../../components';
-import {SearchScreenProps} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {Anime, getSuggestions} from '../../redux/slices/suggestionSlice';
 import {AppDispatch, RootState} from '../../redux/store';
+import {SearchScreenProps} from '../../navigation/types';
 
 interface ItemProps {
   item: Anime;
+  onPress: () => void;
 }
 
 function Item(props: ItemProps): React.JSX.Element {
   return (
-    <View style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={props.onPress}>
       <View style={{margin: 8}}>
         <Image
           source={{uri: props.item.img_url}}
@@ -34,7 +36,7 @@ function Item(props: ItemProps): React.JSX.Element {
         <Text>{props.item.rating}</Text>
         <Text>{props.item.score}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -67,7 +69,11 @@ function SearchScreen(props: SearchScreenProps): React.JSX.Element {
       {/* <History /> */}
       <ScrollView style={{flex: 1}}>
         {suggestions.map((item, index) => (
-          <Item key={index} item={item} />
+          <Item
+            key={index}
+            item={item}
+            onPress={() => props.navigation.navigate('Details', {id: item.id})}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
