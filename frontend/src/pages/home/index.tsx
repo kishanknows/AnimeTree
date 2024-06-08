@@ -1,51 +1,59 @@
 import {
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import {Header} from '../../components';
 import {ICONS} from '../../assets';
-import {HomeScreenProps} from '../../types';
 import {Anime} from '../../redux/slices/suggestionSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTopAnime} from '../../redux/slices/topAnimeSlice';
 import {useEffect, useState} from 'react';
 import {AppDispatch, RootState} from '../../redux/store';
+import {Catalog} from './components';
+import {HomeScreenProps} from '../../navigation/types';
 
 interface RecommendationProps {
   data: Anime;
+  onPress: () => void;
 }
 
 function Recommendation(props: RecommendationProps): React.JSX.Element {
+  const dimensions = useWindowDimensions();
+
   return (
-    <View style={{flexDirection: 'column', padding: 16}}>
+    <Pressable style={{flexDirection: 'column'}} onPress={props.onPress}>
       <View>
         <Image
           source={{uri: props.data.img_url}}
-          style={{height: 300, width: 300}}
+          style={{height: dimensions.height / 2, width: dimensions.width}}
         />
       </View>
-      <View>
-        <Text>{props.data.title}</Text>
+      <View style={{padding: 8, flexShrink: 1, width: dimensions.width}}>
+        <Text style={{fontSize: 18, fontWeight: 'bold', flexShrink: 1}}>
+          {props.data.title}
+        </Text>
         <Text>{props.data.rating}</Text>
         <Text>{props.data.score}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
 function HomeScreen(props: HomeScreenProps): React.JSX.Element {
-  const topAnime = useSelector(
-    (state: RootState) => state.recommendation.topAnime,
+  const topAiring = useSelector(
+    (state: RootState) => state.recommendation.topAnime.airing,
   );
 
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTopAnime());
+    dispatch(getTopAnime('airing'));
   }, []);
 
   return (
@@ -57,10 +65,37 @@ function HomeScreen(props: HomeScreenProps): React.JSX.Element {
           onPress: () => props.navigation.navigate('Search'),
         }}
       />
-      <ScrollView style={styles.container} horizontal={true}>
-        {topAnime.map((item, index) => (
-          <Recommendation data={item} key={index} />
-        ))}
+      <ScrollView>
+        <ScrollView
+          style={styles.container}
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}>
+          {topAiring.map((item, index) => (
+            <Recommendation
+              data={item}
+              key={index}
+              onPress={() =>
+                props.navigation.navigate('Details', {id: item.id})
+              }
+            />
+          ))}
+        </ScrollView>
+        <Catalog
+          filter={'bypopularity'}
+          title="Top Popular"
+          navigation={props.navigation}
+        />
+        <Catalog
+          filter={'upcoming'}
+          title="Top Upcoming"
+          navigation={props.navigation}
+        />
+        <Catalog
+          filter={'favorite'}
+          title="Top Favorite"
+          navigation={props.navigation}
+        />
       </ScrollView>
     </SafeAreaView>
   );
