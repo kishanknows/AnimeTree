@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {searchApi} from '../../../api';
 
 export interface Anime {
+  id: number;
   title: string;
   img_url: string;
   genres: string[];
@@ -9,6 +10,7 @@ export interface Anime {
   score: number;
   duration: string;
   trailer_url: string;
+  synopsis: string;
 }
 
 export const getSuggestions = createAsyncThunk(
@@ -19,6 +21,7 @@ export const getSuggestions = createAsyncThunk(
     const animeList: Anime[] = [];
     data.map((item: any) => {
       animeList.push({
+        id: item.mal_id,
         title: item.title,
         trailer_url: item.trailer.url,
         img_url: item.images.jpg.image_url,
@@ -26,6 +29,7 @@ export const getSuggestions = createAsyncThunk(
         rating: item.rating,
         duration: item.duration,
         score: item.score,
+        synopsis: item.synopsis,
       });
     });
     return animeList;
