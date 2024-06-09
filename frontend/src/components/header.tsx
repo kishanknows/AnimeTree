@@ -1,16 +1,22 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Icon, IconProps} from './icons';
+import {ICONS} from '../assets';
 
 export interface HeaderProps {
   title: string;
   primaryIcon?: IconProps;
   secondaryIcon?: IconProps;
   tertiaryIcon?: IconProps;
+  canGoBack?: boolean;
+  onBack?: () => void;
 }
 
 export function Header(props: HeaderProps): React.JSX.Element {
   return (
     <View style={styles.container}>
+      {props.canGoBack && props.onBack && (
+        <Icon name={ICONS.back} onPress={props.onBack} />
+      )}
       <Text style={styles.text}>{props.title}</Text>
       <View style={styles.icons}>
         {props.primaryIcon && (
@@ -46,6 +52,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'white',
+    flex: 1,
   },
   icons: {
     flexDirection: 'row-reverse',
