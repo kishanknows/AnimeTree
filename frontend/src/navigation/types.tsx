@@ -2,6 +2,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {HomeStackParamList} from './HomeStack';
 import {RouteProp} from '@react-navigation/native';
 import {NewsStackParamList} from './NewsStack';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {MainTabParamList} from './MainTab';
+import {DiscoverStackParamList} from './DiscoverStack';
 
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
   HomeStackParamList,
@@ -41,4 +44,19 @@ type NewsScreenRouteProp = RouteProp<NewsStackParamList, 'News'>;
 export type NewsScreenProps = {
   navigation: NewsScreenNavigationProp;
   route: NewsScreenRouteProp;
+};
+
+type DiscoverScreenNavigationProp = NativeStackNavigationProp<
+  DiscoverStackParamList,
+  'Discover'
+>;
+type DiscoverScreenRouteProp = RouteProp<DiscoverStackParamList, 'Discover'>;
+export type DiscoverScreenProps = {
+  navigation: DiscoverScreenNavigationProp;
+  route: DiscoverScreenRouteProp;
+};
+
+export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
+export type MainTabProps = {
+  navigation: MainTabNavigationProp;
 };
