@@ -13,6 +13,7 @@ import {AppDispatch, RootState} from '../../redux/store';
 import {useEffect, useState} from 'react';
 import {getAnimeDetails} from '../../redux/slices/animeDetailSlice';
 import {DetailScreenProps} from '../../navigation/types';
+import {Header} from '../../components';
 
 function DetailScreen(props: DetailScreenProps): React.JSX.Element {
   const anime = useSelector((state: RootState) => state.details.data);
@@ -25,7 +26,12 @@ function DetailScreen(props: DetailScreenProps): React.JSX.Element {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#0F172A'}}>
+      <Header
+        title="Details"
+        canGoBack={true}
+        onBack={() => props.navigation.goBack()}
+      />
       <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
@@ -36,7 +42,7 @@ function DetailScreen(props: DetailScreenProps): React.JSX.Element {
         </View>
         <Text style={styles.title}>{anime.title}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text>Rated: {anime.rating}</Text>
+          <Text style={{color: 'white'}}>Rated: {anime.rating}</Text>
           <Pressable
             onPress={() => {
               Linking.openURL(anime.trailer_url);
@@ -44,8 +50,8 @@ function DetailScreen(props: DetailScreenProps): React.JSX.Element {
             <Text style={{color: 'blue'}}>trailer</Text>
           </Pressable>
         </View>
-        <Text>Score: {anime.score}</Text>
-        <Text>Background: {anime.synopsis}</Text>
+        <Text style={{color: 'white'}}>Score: {anime.score}</Text>
+        <Text style={{color: 'white'}}>Background: {anime.synopsis}</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -59,6 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'white',
   },
 });
 

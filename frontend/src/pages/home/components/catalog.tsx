@@ -30,12 +30,21 @@ interface CatalogProps {
 function Item(props: ItemProps): React.JSX.Element {
   const dimensions = useWindowDimensions();
   return (
-    <TouchableOpacity onPress={props.onPress} style={{margin: 4}}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={{
+        margin: 4,
+        backgroundColor: '#1E293B',
+        borderRadius: 4,
+        alignItems: 'center',
+      }}>
       <Image
         source={{uri: props.item.img_url}}
         style={{aspectRatio: 0.7, width: dimensions.width / 3}}
       />
-      <Text style={{width: dimensions.width / 3}}>{props.item.title}</Text>
+      <Text style={{width: dimensions.width / 3, color: 'white', margin: 4}}>
+        {props.item.title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -49,9 +58,9 @@ export function Catalog(props: CatalogProps): React.JSX.Element {
     dispatch(getTopAnime(props.filter));
   }, []);
   return (
-    <View>
+    <View style={{marginVertical: 4}}>
       <Text style={styles.title}>{props.title}</Text>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {topAnime[props.filter].map((item, index) => (
           <Item
             key={index}
@@ -69,5 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     margin: 4,
+    color: 'white',
   },
 });

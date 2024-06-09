@@ -10,7 +10,11 @@ const Stack = createNativeStackNavigator<NewsStackParamList>();
 function NewsStack(): React.JSX.Element {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="News" component={NewsScreen} />
+      <Stack.Screen
+        name="News"
+        component={NewsScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }

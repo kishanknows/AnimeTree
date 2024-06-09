@@ -32,9 +32,11 @@ function Item(props: ItemProps): React.JSX.Element {
         />
       </View>
       <View style={{margin: 8, flexWrap: 'wrap'}}>
-        <Text style={{fontWeight: 'bold'}}>{props.item.title}</Text>
-        <Text>{props.item.rating}</Text>
-        <Text>{props.item.score}</Text>
+        <Text style={{fontWeight: 'bold', color: 'white'}}>
+          {props.item.title}
+        </Text>
+        <Text style={{color: 'white'}}>{props.item.rating}</Text>
+        <Text style={{color: 'white'}}>{props.item.score}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -63,10 +65,11 @@ function SearchScreen(props: SearchScreenProps): React.JSX.Element {
             value={query}
             onChangeText={setQuery}
             placeholder="Search for an anime"
+            style={{color: 'white'}}
+            placeholderTextColor={'grey'}
           />
         </View>
       </View>
-      {/* <History /> */}
       <ScrollView style={{flex: 1}}>
         {suggestions.map((item, index) => (
           <Item
@@ -83,19 +86,26 @@ function SearchScreen(props: SearchScreenProps): React.JSX.Element {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    backgroundColor: '#0F172A',
   },
   container: {
     flexDirection: 'row',
   },
   textBox: {
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 8,
     margin: 4,
-    padding: 4,
+    padding: 8,
     flex: 1,
+    borderColor: 'white',
   },
   text: {color: 'black', fontWeight: 'bold', fontSize: 12},
-  item: {flexDirection: 'row'},
+  item: {
+    flexDirection: 'row',
+    backgroundColor: '#1E293B',
+    margin: 2,
+    borderRadius: 4,
+  },
 });
 
 export default SearchScreen;

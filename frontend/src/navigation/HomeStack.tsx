@@ -24,7 +24,11 @@ function HomeStack(): React.JSX.Element {
         component={SearchScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Details" component={DetailScreen} />
+      <Stack.Screen
+        name="Details"
+        component={DetailScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }

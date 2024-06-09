@@ -27,7 +27,9 @@ function Recommendation(props: RecommendationProps): React.JSX.Element {
   const dimensions = useWindowDimensions();
 
   return (
-    <Pressable style={{flexDirection: 'column'}} onPress={props.onPress}>
+    <Pressable
+      style={{flexDirection: 'column', backgroundColor: '#1E293B'}}
+      onPress={props.onPress}>
       <View>
         <Image
           source={{uri: props.data.img_url}}
@@ -35,11 +37,17 @@ function Recommendation(props: RecommendationProps): React.JSX.Element {
         />
       </View>
       <View style={{padding: 8, flexShrink: 1, width: dimensions.width}}>
-        <Text style={{fontSize: 18, fontWeight: 'bold', flexShrink: 1}}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: 'bold',
+            flexShrink: 1,
+            color: 'white',
+          }}>
           {props.data.title}
         </Text>
-        <Text>{props.data.rating}</Text>
-        <Text>{props.data.score}</Text>
+        <Text style={{color: 'white'}}>{props.data.rating}</Text>
+        <Text style={{color: 'white'}}>{props.data.score}</Text>
       </View>
     </Pressable>
   );
@@ -61,11 +69,15 @@ function HomeScreen(props: HomeScreenProps): React.JSX.Element {
       <Header
         title="MyAnime"
         primaryIcon={{
+          name: ICONS.profile,
+          onPress: () => {},
+        }}
+        secondaryIcon={{
           name: ICONS.search,
           onPress: () => props.navigation.navigate('Search'),
         }}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView
           style={styles.container}
           horizontal={true}
@@ -104,6 +116,7 @@ function HomeScreen(props: HomeScreenProps): React.JSX.Element {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    backgroundColor: '#0F172A',
   },
   container: {
     flex: 1,
