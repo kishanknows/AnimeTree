@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import { dataSource } from "./data-source";
 import { News } from "./entities/News";
 import { NewsScraper } from "./scraper";
+import axios from "axios";
 
 dataSource.initialize().then(() => {
   const app: Express = express();
@@ -17,6 +18,8 @@ dataSource.initialize().then(() => {
       "https://www.animenewsnetwork.com/news/"
     );
     try {
+      const repo = dataSource.getRepository(News);
+      await repo.clear();
       await dataSource
         .createQueryBuilder()
         .insert()
@@ -36,6 +39,7 @@ dataSource.initialize().then(() => {
         .createQueryBuilder()
         .select("news")
         .from(News, "news")
+        .limit(10)
         .getMany();
       res.send(response);
     } catch (error) {
@@ -45,6 +49,14 @@ dataSource.initialize().then(() => {
   });
 
   return app.listen(process.env.PORT, () => {
+    setInterval(() => {
+      try {
+        axios.post(`http://localhost:${process.env.PORT}/anime/news`);
+        console.log("news updated");
+      } catch (error) {
+        console.log(error);
+      }
+    }, 600000);
     console.log(
       `[server]: Server is running on http://localhost:${process.env.PORT}`
     );
