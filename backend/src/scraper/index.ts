@@ -1,14 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
-
-export interface News {
-  headline: string;
-  thumbnail: string | undefined;
-  url: string | undefined;
-  time_posted: string;
-  hook: string;
-  full: string;
-}
+import { News } from "../entities/News";
 
 export class NewsScraper {
   async scrapeNews(url: string) {
@@ -31,14 +23,16 @@ export class NewsScraper {
         .trim();
       const hook = $(element).find(".wrap > div > div > .hook").text().trim();
       const full = $(element).find(".wrap > div > div > .full").text().trim();
-      const news: News = {
-        headline: headline,
-        thumbnail: `https://cdn.animenewsnetwork.com${thumbnail}`,
-        url: `https://www.animenewsnetwork.com${url}`,
-        time_posted: timePosted,
-        hook: hook,
-        full: full,
-      };
+
+      const news = new News();
+
+      news.headline = headline;
+      news.thumbnail = `https://cdn.animenewsnetwork.com${thumbnail}`;
+      news.url = `https://www.animenewsnetwork.com${url}`;
+      news.time_posted = timePosted;
+      news.hook = hook;
+      news.full = full;
+
       newsList.push(news);
     }
     return newsList;
