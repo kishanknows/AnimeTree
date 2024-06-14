@@ -1,6 +1,6 @@
 import { dataSource } from "../config/db";
 import { News } from "../entities/News";
-import { NewsScraper } from "../scraper";
+import { NewsScraper } from "../scraper/newsScraper";
 import { Request, Response } from "express";
 
 export async function updateNews(req: Request, res: Response) {
