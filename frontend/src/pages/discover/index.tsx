@@ -12,7 +12,6 @@ import {AppDispatch, RootState} from '../../redux/store';
 import {useEffect} from 'react';
 import {getAnimeGenre} from '../../redux/slices/animeGenreSlice';
 import {Header} from '../../components';
-import {ICONS} from '../../assets';
 
 interface GenreProps {
   title: string;
@@ -55,7 +54,11 @@ function DiscoverScreen(props: DiscoverScreenProps): React.JSX.Element {
             flexWrap: 'wrap',
           }}>
           {animeGenre.map((item, index) => (
-            <Genre key={index} title={item.name} onPress={() => {}} />
+            <Genre
+              key={index}
+              title={item.name}
+              onPress={() => props.navigation.navigate('DiscoverAnime', item)}
+            />
           ))}
         </View>
       </ScrollView>

@@ -13,7 +13,7 @@ import {ICONS} from '../../assets';
 import {Anime} from '../../redux/slices/suggestionSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTopAnime} from '../../redux/slices/topAnimeSlice';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {AppDispatch, RootState} from '../../redux/store';
 import {Catalog} from './components';
 import {HomeScreenProps} from '../../navigation/types';
@@ -88,6 +88,7 @@ function HomeScreen(props: HomeScreenProps): React.JSX.Element {
               data={item}
               key={index}
               onPress={() =>
+                //@ts-ignore
                 props.navigation.navigate('Details', {id: item.id})
               }
             />
