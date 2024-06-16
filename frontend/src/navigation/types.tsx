@@ -5,6 +5,7 @@ import {NewsStackParamList} from './NewsStack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {MainTabParamList} from './MainTab';
 import {DiscoverStackParamList} from './DiscoverStack';
+import {RootStackParamList} from './RootStack';
 
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
   HomeStackParamList,
@@ -27,10 +28,11 @@ export type SearchScreenProps = {
 };
 
 type DetailScreenNavigationProp = NativeStackNavigationProp<
-  HomeStackParamList,
+  RootStackParamList,
   'Details'
 >;
-type DetailScreenRouteProp = RouteProp<HomeStackParamList, 'Details'>;
+type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+
 export type DetailScreenProps = {
   navigation: DetailScreenNavigationProp;
   route: DetailScreenRouteProp;
@@ -54,6 +56,19 @@ type DiscoverScreenRouteProp = RouteProp<DiscoverStackParamList, 'Discover'>;
 export type DiscoverScreenProps = {
   navigation: DiscoverScreenNavigationProp;
   route: DiscoverScreenRouteProp;
+};
+
+type DiscoverAnimeScreenNavigationProp = NativeStackNavigationProp<
+  DiscoverStackParamList,
+  'DiscoverAnime'
+>;
+type DiscoverAnimeScreenRouteProp = RouteProp<
+  DiscoverStackParamList,
+  'DiscoverAnime'
+>;
+export type DiscoverAnimeScreenProps = {
+  navigation: DiscoverAnimeScreenNavigationProp;
+  route: DiscoverAnimeScreenRouteProp;
 };
 
 export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
