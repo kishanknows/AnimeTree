@@ -5,6 +5,7 @@ import animeDetailReducer from './slices/animeDetailSlice';
 import animeGenreReducer from './slices/animeGenreSlice';
 import animeNewsReducer from './slices/animeNewsSlice';
 import discoverAnimeReducer from './slices/discoverAnimeSlice';
+import userReducer from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     genre: animeGenreReducer,
     news: animeNewsReducer,
     discover: discoverAnimeReducer,
+    user: userReducer,
   },
 });
 
