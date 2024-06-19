@@ -32,10 +32,29 @@ type DetailScreenNavigationProp = NativeStackNavigationProp<
   'Details'
 >;
 type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
-
 export type DetailScreenProps = {
   navigation: DetailScreenNavigationProp;
   route: DetailScreenRouteProp;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Login'
+>;
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
+export type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+  route: LoginScreenRouteProp;
+};
+
+type SignupScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Signup'
+>;
+type SignupScreenRouteProp = RouteProp<RootStackParamList, 'Signup'>;
+export type SignupScreenProps = {
+  navigation: SignupScreenNavigationProp;
+  route: SignupScreenRouteProp;
 };
 
 type NewsScreenNavigationProp = NativeStackNavigationProp<
