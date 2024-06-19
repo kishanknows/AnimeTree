@@ -14,6 +14,7 @@ export class NewsScraper {
     const newsList = [] as News[];
 
     for (let element of data) {
+      const id = $(element).attr("data-topics")?.split(" ")[0];
       const headline = $(element).find(".wrap > div > h3 > a").text().trim();
       const thumbnail = $(element).find(".thumbnail").attr("data-src");
       const url = $(element).find(".wrap > div > h3 > a").attr("href");
@@ -25,7 +26,7 @@ export class NewsScraper {
       const full = $(element).find(".wrap > div > div > .full").text().trim();
 
       const news = new News();
-
+      news.id = id ? id : "";
       news.headline = headline;
       news.thumbnail = `https://cdn.animenewsnetwork.com${thumbnail}`;
       news.url = `https://www.animenewsnetwork.com${url}`;

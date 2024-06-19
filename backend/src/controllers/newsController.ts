@@ -10,7 +10,6 @@ export async function updateNews(req: Request, res: Response) {
   );
   try {
     const newsRepository = dataSource.getRepository(News);
-    await newsRepository.clear();
     await newsRepository.save(newsList);
     return res.send("news updated");
   } catch (error) {
