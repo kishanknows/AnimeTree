@@ -6,17 +6,21 @@ import { encrypt } from "../utils/encryption";
 export class authController {
   static async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
-      if (!email || !password) {
+      const { emailUsername, password } = req.body;
+      if (!emailUsername || !password) {
         return res.status(400).json({
           message: "email and password required",
         });
       }
 
       const userRepository = dataSource.getRepository(User);
-      const user = await userRepository.findOne({
-        where: { email },
+      const withEmail = await userRepository.findOne({
+        where: { email: emailUsername },
       });
+      const withUsername = await userRepository.findOne({
+        where: { username: emailUsername },
+      });
+      const user = withEmail ? withEmail : withUsername;
 
       if (!user) {
         return res.status(404).json({
