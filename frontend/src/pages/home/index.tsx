@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import {Header} from '../../components';
-import {ICONS} from '../../assets';
+import {ICONS} from '../../assets/icons';
 import {Anime} from '../../redux/slices/suggestionSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTopAnime} from '../../redux/slices/topAnimeSlice';
@@ -67,7 +67,7 @@ function HomeScreen(props: HomeScreenProps): React.JSX.Element {
   return (
     <SafeAreaView style={styles.background}>
       <Header
-        title="MyAnime"
+        title="AnimeTree"
         primaryIcon={{
           name: ICONS.profile,
           onPress: () => {},

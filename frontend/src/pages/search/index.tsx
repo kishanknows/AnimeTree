@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import {ICONS} from '../../assets';
+import {ICONS} from '../../assets/icons';
 import {Icon} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {Anime, getSuggestions} from '../../redux/slices/suggestionSlice';
@@ -75,6 +75,7 @@ function SearchScreen(props: SearchScreenProps): React.JSX.Element {
           <Item
             key={index}
             item={item}
+            //@ts-ignore
             onPress={() => props.navigation.navigate('Details', {id: item.id})}
           />
         ))}

@@ -4,7 +4,7 @@ import NewsStack from './NewsStack';
 import {View} from 'react-native';
 import {MainTabNavigationProp, MainTabProps} from './types';
 import {Icon} from '../components';
-import {ICONS} from '../assets';
+import {ICONS} from '../assets/icons';
 import {useState} from 'react';
 import DiscoverStack from './DiscoverStack';
 

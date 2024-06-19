@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Icon, IconProps} from './icons';
-import {ICONS} from '../assets';
+import {ICONS} from '../assets/icons';
 
 export interface HeaderProps {
   title: string;

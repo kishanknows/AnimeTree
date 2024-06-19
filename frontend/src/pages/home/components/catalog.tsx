@@ -13,7 +13,6 @@ import {AppDispatch, RootState} from '../../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTopAnime} from '../../../redux/slices/topAnimeSlice';
 import {Filter} from '../../../../api';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProp} from '../../../navigation/types';
 
 interface ItemProps {
@@ -42,7 +41,9 @@ function Item(props: ItemProps): React.JSX.Element {
         source={{uri: props.item.img_url}}
         style={{aspectRatio: 0.7, width: dimensions.width / 3}}
       />
-      <Text style={{width: dimensions.width / 3, color: 'white', margin: 4}}>
+      <Text
+        style={{width: dimensions.width / 3, color: 'white', margin: 4}}
+        numberOfLines={2}>
         {props.item.title}
       </Text>
     </TouchableOpacity>
@@ -65,6 +66,7 @@ export function Catalog(props: CatalogProps): React.JSX.Element {
           <Item
             key={index}
             item={item}
+            //@ts-ignore
             onPress={() => props.navigation.navigate('Details', {id: item.id})}
           />
         ))}
