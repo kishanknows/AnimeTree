@@ -3,6 +3,7 @@ import cheerio from "cheerio";
 
 interface GenreAnime {
   id: number;
+  genre_id: number;
   title: string;
   thumbnail: string | undefined;
   synopsis: string;
@@ -12,7 +13,7 @@ interface GenreAnime {
 }
 
 export class GenreScraper {
-  async scrapeGenre(url: string) {
+  async scrapeGenre(url: string, genreId: number) {
     const response = await axios.get(url);
     const html = response.data;
 
@@ -32,6 +33,7 @@ export class GenreScraper {
       const [type, aired, eps] = $(element).find(".info").children().get();
       animeList.push({
         id: parseInt(id ? id : ""),
+        genre_id: genreId,
         title: title,
         thumbnail: thumbnail,
         synopsis: synopsis,
