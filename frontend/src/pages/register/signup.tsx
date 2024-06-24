@@ -40,6 +40,7 @@ function SignupScreen(props: SignupScreenProps): React.JSX.Element {
         token: response.token,
         email: response.user.email,
         username: response.user.username,
+        isLoggedIn: true,
       };
       dispatch(createUser(user));
       props.navigation.navigate('MainTab');

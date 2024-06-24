@@ -1,23 +1,48 @@
 import {configureStore} from '@reduxjs/toolkit';
-import suggestionReducer from './slices/suggestionSlice';
-import topAnimeReducer from './slices/topAnimeSlice';
-import animeDetailReducer from './slices/animeDetailSlice';
-import animeGenreReducer from './slices/animeGenreSlice';
-import animeNewsReducer from './slices/animeNewsSlice';
-import discoverAnimeReducer from './slices/discoverAnimeSlice';
-import userReducer from './slices/userSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  createMigrate,
+  FLUSH,
+  MigrationManifest,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
+import {rootReducer} from './reducers';
+import {User} from './slices/userSlice';
+
+// const migrations: MigrationManifest = {
+//   1: state => {
+//     return {
+//       ...state,
+//     };
+//   },
+// };
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage: AsyncStorage,
+  whitelist: ['user'],
+  // migrate: createMigrate(migrations, {debug: false}),
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    suggestions: suggestionReducer,
-    recommendation: topAnimeReducer,
-    details: animeDetailReducer,
-    genre: animeGenreReducer,
-    news: animeNewsReducer,
-    discover: discoverAnimeReducer,
-    user: userReducer,
-  },
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
+export const persistor = persistStore(store);
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
