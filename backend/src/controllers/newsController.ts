@@ -21,7 +21,9 @@ export async function updateNews(req: Request, res: Response) {
 export async function getNews(req: Request, res: Response) {
   try {
     const newsRepository = dataSource.getRepository(News);
-    const response = await newsRepository.find();
+    const response = await newsRepository.query(
+      `SELECT * FROM news ORDER BY time_posted DESC LIMIT 20;`
+    );
     return res.send(response);
   } catch (error) {
     console.log(error);

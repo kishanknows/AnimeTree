@@ -23,7 +23,7 @@ export class NewsScraper {
         .text()
         .trim();
       const hook = $(element).find(".wrap > div > div > .hook").text().trim();
-      const full = $(element).find(".wrap > div > div > .full").text().trim();
+      // const full = $(element).find(".wrap > div > div > .full").text().trim();
 
       const news = new News();
       news.id = id ? id : "";
@@ -32,10 +32,21 @@ export class NewsScraper {
       news.url = `https://www.animenewsnetwork.com${url}`;
       news.time_posted = timePosted;
       news.hook = hook;
-      news.full = full;
+      news.full = await this.scrapeFullNews(news.url);
 
       newsList.push(news);
     }
     return newsList;
+  }
+
+  async scrapeFullNews(url: string) {
+    const response = await axios.get(url);
+    const html = response.data;
+
+    const $ = cheerio.load(html);
+    $("figure").remove();
+
+    const data = $(".meat").text().trim();
+    return data;
   }
 }

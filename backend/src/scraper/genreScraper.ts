@@ -19,11 +19,11 @@ export class GenreScraper {
 
     const $ = cheerio.load(html);
     const data = $(
-      ".js-anime-category-producer.seasonal-anime.js-seasonal-anime.js-anime-type-all"
+      ".js-anime-category-producer.seasonal-anime.js-seasonal-anime.js-anime-type-all.js-anime-type-1"
     ).get();
     const animeList: GenreAnime[] = [];
     for (let element of data) {
-      const id = $(element).find(".genres.js-genre").attr("id");
+      const id = $(element).find("div > .genres.js-genre").attr("id");
       const title = $(element).find(".h2_anime_title > a").text().trim();
       const thumbnail = $(element).find(".image > a > img").attr("data-src");
       const synopsis = $(element)
